@@ -6,9 +6,6 @@ const app = express();
 
 app.use(express.json())
 
-console.log(process.env.SECRET_MESSAGE)
-
-
 // Routes
 app.get('/', (req, res) => {
     res.send("First Request!!!!!")
@@ -28,7 +25,9 @@ app.post("/create_user", (req, res) => {
     res.send(`Created your user ${req.body.name}`)
 })
 
-mongoose.connect("mongodb+srv://<username>:<password>@cluster0-jksv6.mongodb.net/test?retryWrites=true&w=majority", (req, res) => {
+mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0-jksv6.mongodb.net/test?retryWrites=true&w=majority`, 
+    { useUnifiedTopology: true, useNewUrlParser: true },
+    (req, res) => {
     console.log("Connected to the database")
 })
 
